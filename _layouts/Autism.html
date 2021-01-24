@@ -4,7 +4,7 @@ layout: archive
 
 {{ content }}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Portfolio " }}</h3>
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Autism Acceptance: A Personal Blog " }}</h3>
 
 {% if paginator %}
   {% assign posts = paginator.posts %}
@@ -12,12 +12,16 @@ layout: archive
   {% assign posts = site.posts %}
 {% endif %}
 
+
+
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
   {% for post in posts %}
-  	{% if post.categories contains "Portfolio" %}
+  	{% if post.categories contains "Autism" %}
   		{% include archive-single.html type=entries_layout %}
   	{% endif %}
+    
+
   {% endfor %}
 </div>
 
