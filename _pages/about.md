@@ -3,4 +3,4 @@ permalink: /about/
 title: "About"
 ---
 
-There used to be something in spanish here.
+Waiting to write a reasonable description
