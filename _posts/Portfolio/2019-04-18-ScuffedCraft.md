@@ -3,10 +3,10 @@ title: "ScuffedCraft - Nintendo Wii Voxel Game"
 date: 2019-04-18T15:34:30-04:00
 
 header:
-  teaser: /assets/images/ScuffedCraft/Teaser.png
+  teaser: /assets/Portfolio/ScuffedCraft/Teaser.png
 
 categories:
-  - Portfolio
+  - Portfolio_REMOVELATER
 tags:
   - Alternative Hardware
   - C
