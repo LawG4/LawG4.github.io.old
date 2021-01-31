@@ -69,6 +69,8 @@ To run these executables on an actual Wii, you will need a Wii with homebrew ins
 wiiload EXECUTABLE COMAND_LINE_ARGS
 ```
 [![ezgif-7-da98a6e46993.gif](https://s2.gifyu.com/images/ezgif-7-da98a6e46993.gif)](https://gifyu.com/image/UR1d)
+
+
 *(Excuse the terrible screen quality, I bought a cheap HDMI adapter)*
 ## Hello, World!
 
@@ -194,6 +196,10 @@ LIBS	:=	-lwiiuse -lbte -logc -lm
 LIBDIRS	:=
 ``` 
 So finally we have most of the knowledge to understand what we're doing when we call *"make"* inside of the *"Hello, world!* project.
+
+
 ![makefile](/assets/Blog/HelloWorldWii/make.png)
+
+
 Finally the result of our labour will run on both Dolphin emulator and actual Nintendo hardware. 
 ![makefile](/assets/Blog/HelloWorldWii/HelloWorld.png)
