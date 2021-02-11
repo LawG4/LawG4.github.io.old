@@ -4,6 +4,7 @@ date: 2021-01-29T15:34:30-04:00
 
 header:
   teaser: /assets/Blog/HelloWorldWii/Teaser.png
+  thumb: /assets/Blog/HelloWorldWii/Thumb.png
 
 categories:
   - Blog
