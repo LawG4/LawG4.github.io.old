@@ -33,7 +33,7 @@ Firstly, navigate over to the latest version of the graphical installer [here](h
 
 #### Unix Like (macOS and Linux)
 
-On Unix systems, pacman is the tool used to distribute all devkitPro packages. If you are on an Arch-based system, this should be easy. For systems without pacman, devkitPro maintains their version called *dkp-pacman*. Go to their [latest pacman release](https://github.com/devkitPro/pacman/releases/), scroll down to find a .deb file for Debian based systems, and a .pkg file for macOS.  
+On Unix systems, pacman is the tool used to distribute all devkitPro packages. If you are on an Arch-based system, this should be easy. For systems without pacman, devkitPro maintains their version called *dkp-pacman*. Go to their [latest pacman release](https://github.com/devkitPro/pacman/releases/), scroll down to find a .deb file for Debian based systems, and a .pkg file for macOS.
 For systems like Ubuntu, you may need to install *gdebi-core*. Then run the gdebi command on the right .deb file for your architecture. On macOS, take the .pkg and *right-click > open.*
 
 With pacman installed onto your system, we can use the following set of commands to download the Wii-dev package group.  
@@ -50,21 +50,22 @@ Install the Wii devkit
 sudo (dkp-)pacman -S wii-dev
 ```
 
-On Linux, devkit installs a script to /etc/profile.d/devkit-env.sh, which will automatically set the necessary environment variables when you log in. The default settings should be fine, but this file will need editing if you installed to a custom location. After ensuring the environment variables will have the correct contents, log out and log back in to set your environment variables. On macOS, you will need to reboot your device.  
- To ensure that this page always links to up to date information I will also include the links to devkit's [getting started](https://devkitpro.org/wiki/Getting_Started) page and their [pacman explanation](https://devkitpro.org/wiki/devkitPro_pacman).
+On Linux, devkit installs a script to */etc/profile.d/devkit-env.sh*, which will automatically set the necessary environment variables when you log in. The default settings should be fine, but this file will need editing if you installed to a custom location. After ensuring the environment variables will have the correct contents, log out and log back in to set your environment variables. On macOS, you will need to reboot your device.  
+
+ To ensure that this page always links to up to date information I will also include the links to devkit's [getting started](https://devkitpro.org/wiki/Getting_Started) page and their [pacman explanation](https://devkitpro.org/wiki/devkitPro_pacman). I don't own a mac, so if anyone would like to check these steps for macOS and ensure they're correct, that would be appreciated.
 ## Building Examples
-Navigate to the location that you installed devkitPro *(on Linux this should be /opt/devkitpro/)*, and you'll find a folder called /examples/wii/. Copy the Wii examples folder to wherever you plan to be developing, open a terminal in your folder *(Windows users use ctrl + shift + right-click > Open PowerShell here)* and enter the command: 
+Navigate to the location that you installed devkitPro *(on Linux this should be /opt/devkitpro/)*, and you'll find a folder called */examples/wii/*. Copy the Wii examples folder to wherever you plan to be developing, open a terminal in your folder *(Windows users use ctrl + shift + right-click > Open PowerShell here)* and enter the command: 
 ```console
 make
 ```
-Those familiar with Linux development will know this command well, Windows developers might not be as sure. When starting a compiler command-line arguments are added, such as which libraries to link. Make files automate that process so that you don’t have to specify command-line arguments every single time. Packaging a MySys environment on Windows allows the use of the make tool automatically via command-line. Note, on Windows, be careful which terminal emulator you use; I found git bash had a conflicting version of cygwin.dll, but Powershell and Cmder both worked fine.
+Those familiar with Linux development will know this command well, Windows developers might not be as sure. When starting a compiler, command-line arguments are added; such as which libraries to link, the location of those libraries etc. Make files automate that process so that you don’t have to specify command-line arguments every single time. Packaging a MySys environment on Windows allows the use of the make tool automatically via command-line. Note, on Windows, be careful which terminal emulator you use; I found git bash had a conflicting version of cygwin.dll, but Powershell and Cmder both worked fine.
 
 Calling the make command in this location activates the makefile, which will loop through all the examples and build all of the Wii examples. Inside each example folder, you'll find a .dol and a .elf file. The .dol file is the raw binary file, and the .elf file is the output of the linker.
 
  .elf files have debugging information, and .dol files are best for distribution. Both file formats can be executed on the Wii, or more conveniently the Dolphin emulator. 
 ![example](/assets/Blog/HelloWorldWii/Example.png)
 
-To run these executables on an actual Wii, you will need a Wii with homebrew installed. Navigate to the homebrew menu and find your console's IP address, then you can set the environment variable ***"WIILOAD"*** to *"tcp:IP_ADDRESS"*. From here we can use the wiiload tool to send and load the executable to the console. You can find this tool in the following directory: /devkitPro/tools/bin/. On Windows, you can drag and drop the binary file onto wiiload.exe, Unix users can use the following command:
+To run these executables on an actual Wii, you will need a Wii with homebrew installed. Navigate to the homebrew menu and find your console's IP address, then you can set the environment variable ***"WIILOAD"*** to *"tcp:IP_ADDRESS"*. From here we can use the wiiload tool to send and load the executable to the console. You can find this tool in the following directory: */devkitPro/tools/bin/.* On Windows, you can drag and drop the binary file onto wiiload.exe, Unix users can use the following command:
 ```console
 wiiload EXECUTABLE COMAND_LINE_ARGS
 ```

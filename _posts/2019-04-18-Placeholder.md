@@ -10,9 +10,6 @@ categories:
   - Portfolio
   - Graphics
 tags:
-  - Autism Acceptance 
-  - Autism
-  - Personal
 ---
 I have not yet written anything for this topic yet. I hope to have something ready in the future.
 
