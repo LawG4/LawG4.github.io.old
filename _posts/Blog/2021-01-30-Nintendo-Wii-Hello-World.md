@@ -4,7 +4,7 @@ date: 2021-01-29T15:34:30-04:00
 
 header:
   teaser: /assets/Blog/HelloWorldWii/Teaser.png
-  thumb: /assets/Blog/HelloWorldWii/Thumb.png
+  og_image: /assets/Blog/HelloWorldWii/Thumb.png
 
 categories:
   - Blog
@@ -15,7 +15,7 @@ tags:
   - Devkit
   - Nintendo Wii
 ---
-The Nintendo Wii has always been a favourite console of mine, and it has supplied me with countless hours of joy. Because of this, I want to join my passion for programming with this fantastic console. Thankfully there exists a toolchain called devkitPPC for programming this particular device. Today I would like to introduce you to those tools. This blog entry will be a traditional “Hello, world” style introduction to devkitPPC, taking you through the installation process and your first program. DevkitPPC contains the following: 
+ The Nintendo Wii has always been a favourite console of mine, and it has supplied me with countless hours of joy. Because of this, I want to join my passion for programming with this fantastic console. Thankfully there exists a toolchain called devkitPPC for programming this particular device. Today I would like to introduce you to those tools. This blog entry will be a traditional “Hello, world” style introduction to devkitPPC, taking you through the installation process and your first program. DevkitPPC contains the following: 
 - C and C++ compiler.
 - libogc a library for interfacing with the hardware.
 - A collection of ported libraries.
