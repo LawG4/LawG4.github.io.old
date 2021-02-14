@@ -89,6 +89,12 @@
     {% endif %}
   {% endif %}
 
+  {% if page_large_image %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ page_large_image }}">
+  {% endif %}
+
+
   {% if author_twitter %}
     <meta name="twitter:creator" content="@{{ author_twitter }}">
   {% endif %}
