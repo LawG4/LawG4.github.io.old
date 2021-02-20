@@ -205,3 +205,39 @@ Now that we understand how the components interact, we can build the template pr
 
 
 ![makefile](/assets/Blog/HelloWorldWii/HelloWorld.png)
+
+## My Development Set Up
+
+A development environment is one of the most important things in development, allow me to show you my personal set up. I use Visual Studio Code, and use it to open the project root folder. (That's the one with the make file in it) Next we need to set up the C and C++ configuration, this allows VSCode to find all the header files and highlight any syntax errors. I've added another environment variable called _DEVKIT_PATH_, I've done this because the Windows environment variable for DevkitPro points to the MySys location, not the Windows location.
+
+As a quick break down, we add the include locations for the ported standard libraries, and libogc. We have to add a define for "_GEKKO_" which is the name of the processor in the Wii. We add a path that points to the compiler used to create the build, this will also outline compiler errors. Finally the intellisense mode was automatically selected by VSCode, but it seems to work well.
+
+```json
+{
+    "name": "Wii",
+    "includePath": [
+        "${workspaceFolder}/**",
+        "${DEVKIT_PATH}/devkitPPC/powerpc-eabi/include/**",
+        "${DEVKIT_PATH}/libogc/include/**"
+    ],
+    "defines": [
+        "GEKKO",
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+    ],
+    "compilerPath": "${DEVKIT_PATH}/devkitPPC/bin/powerpc-eabi-gcc",
+    "cStandard": "c99",
+    "cppStandard": "c++14",
+    "intelliSenseMode": "linux-gcc-x86"
+}
+```
+
+There's one last quality of life improvement, for automatically running builds after compiling. The makefile that we've been supplied with has a run command, this command will usually attempt to run the executable on a real Wii using Wiiload. However I prefer to do the bulk of my development in dolphin, and then after a development cycle ensure that it works on real hardware. So we can change the run rule to the following:
+
+```make
+run:
+	<Path To Dolphin Emulator>\\Dolphin.exe -b $(OUTPUT).elf
+```
+
+The _"-b"_ tag ensures that dolphin runs in "batch" mode, which will run a Dolphin instance running only the .elf file. Finally we have a full development environment in which we can write, compile and run code for the Nintendo Wii.
