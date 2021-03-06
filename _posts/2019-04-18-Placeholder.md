@@ -6,7 +6,6 @@ header:
   teaser: /assets/PlaceHolder.png
 
 categories:
-  - Autism
   - Portfolio
   - Graphics
 tags:

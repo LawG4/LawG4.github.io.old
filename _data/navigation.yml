@@ -5,7 +5,5 @@ main:
     url: /blog/
   - title: "Graphics Tutorials"
     url: /graphics/
-  - title: "Autism Acceptance"
-    url: /autism/
   - title: "About"
     url: /about/
