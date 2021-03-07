@@ -58,7 +58,7 @@ plugins:
 author:
   name   : "Lawrence Green"
   avatar : "/assets/bio-photo.jpg"
-  bio    : "Mathematician learning to specialise in GPU and compute. Welcome to my blog, please enjoy your stay. feedback and questions always welcome."
+  bio    : "Autistic mathematician, learning to specialise in GPU and compute. Welcome to my blog, please enjoy your stay. feedback and questions always welcome."
   links:
     #- label: "Website"
     #  icon: "fas fa-fw fa-link"
