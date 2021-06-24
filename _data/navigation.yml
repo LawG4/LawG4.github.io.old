@@ -3,7 +3,5 @@ main:
     url: /
   - title: "Programming Blog"
     url: /blog/
-  - title: "Graphics Tutorials"
-    url: /graphics/
   - title: "About"
     url: /about/
