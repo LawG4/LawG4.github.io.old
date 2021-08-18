@@ -60,3 +60,30 @@ It's at this point in the article I am realising that I have yet to accomplish a
 To this end most cartridges have a MBC (Memory Bank Controller) Which will let the Gameboy split the ROM into separate sections. This means the CPU could request to Read 0x100 twice, and get a different result depending on which bank is selected. You can actually see that the MBC traces connect to some of the address pins on the ROM. I'm am honestly not sure how this will effect the layout of the ROM contents.
 
 However the whole ROM can be accessed by carefully setting the right flags to the MBC one at a time, we can get the ROM data in the same order as it was stored on the ROM chip, there are tools to do this automatically, and the process is called ROM dumping
+
+### Interrogating  Values Of  The ROM
+
+Now that you have the contents of the ROM file dumped, we can use a hex dumping tool to read the binary data at specific locations; this along with Nintendo's documentation will be our key to reverse engineering. 
+
+The Nintendo documentation specifies that the catridge header is stored at address range [0x100 - 0x14FF], this mainly contains meta data about the game, such as the game's name. However, the byte at 0x147 contains the cartridge type.
+
+```bash
+# xxd Hex dumping tool
+# -s Offset to start reading from
+# -l How many bytes to read
+xxd -s 0x147 -l 1 kirby.gb
+# Returns 0x01
+```
+
+ For Kirby's dream land, we get byte 0x01, which we can look up in a table to find that it corresponds to a cartridge with just an MBC type 1 and a ROM. Keep this in mind, we'll need this information for later. 
+
+The last useful thing in the cartridge header is the initial instruction, These are the three bytes [0x100 - 0x103]. After the Gameboy's internal boot ROM has finished executing, the ***PC*** (Program Counter) is set to 0x100, meaning this is the first bytes of code ran from the cartridge that the developer has control over. It is almost always: *0x00 0xc3 0x50 0x01* The first byte is a NO OP, meaning the CPU does nothing and increases the PC. 0xc3 is the next OP code and it means to jump to the address in the two operands, On this CPU the low byte is ordered first, so these 3 bytes translate into *"Jump to address 0x150"* i.e. start executing the code after the cartridge header.
+
+```bash
+xxd -s 0x100 -l 4 kirby.gb
+# Returns:
+# 00c3 5001
+```
+
+Using the hex dump tool, we can see that Kirby's dream land is the same. However, we won't get far interrogating this ROM one byte at a time. Let's start automating this process a little.
+
