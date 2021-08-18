@@ -85,5 +85,5 @@ xxd -s 0x100 -l 4 kirby.gb
 # 00c3 5001
 ```
 
-Using the hex dump tool, we can see that Kirby's dream land is the same. However, we won't get far interrogating this ROM one byte at a time. Let's start automating this process a little.
+Using the hex dump tool, we can see that Kirby's dream land is the same. It may not look like much, but we've decoded the first three instructions ran by KDL. However, we won't get far interrogating this ROM one byte at a time. Let's start automating this process a little.
 
