@@ -16,13 +16,13 @@ tags:
   - Raytracing
 ---
 
-## Introduction
-
 This project was written for my masters thesis, as one my first cpp projects; as a result I feel the code has many options for improvement, including accelerating the computation on the GPU. 
+
+## Project summary
 
 It feels a little bit odd to write a blog post on this project seeming that I have already written a whole disertation on the subject, which you can find on [github](https://github.com/LawG4/MastersDissertation/raw/main/MastersDissertaion.pdf). 
 
-The dissertation covers an introduction to reflection groups, and hyperbolic space. Then the concept of fundamental domains is introduced, which is a subset of the space bounded between a set of mirrors; the mirrors themselves can also be reflected in order to segment the space. The code portion of this project takes set of mirrors and then tessellates the fundamental domain across the entire plane, the sole purpose of this is to create pretty imagery!
+The dissertation covers an introduction to reflection groups, and hyperbolic space. Then the concept of fundamental domains is introduced, which is a subset of space bounded between a set of mirrors; the mirrors themselves can also be reflected in order to segment the space. The code portion of this project takes set of mirrors and then tessellates the fundamental domain across the entire plane, the sole purpose of this is to create pretty imagery!
 
 ![](/assets/Portfolio/HyperbolicTess/Teaser.png)
 
