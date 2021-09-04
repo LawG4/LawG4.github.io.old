@@ -47,9 +47,9 @@ The notation I used above is called *hexadecimal,* which is where numbers range 
 
 How does a ROM chip actually output data? Well there's a couple things it needs. All chips need power and ground, the rom then takes an address line as input, and a data line as output. There are other pins like the clock signal, and the chip enable pin. The CPU can set the address of the byte it wants to receive using binary, it physically sets the wires to have a high or a low voltage representing a 0 and a 1 respectively. The ROM chip will (after a very small delay) output the byte stored at that address.  
 
-![Cartridge](/assets/Blog/Decompilation/SimpleRomChip.png)*Disc: Very over simplified*
+![Cartridge](/assets/Blog/Decompilation/SimpleRomChip.png)
 
-In the above image you can see that the CPU is requesting the byte at 0xA2 which is the 162nd byte into the ROM, which in this example happened to be 0x66. Note that this is an absurdly simplified example, Ben Eater does some excellent videos on this if you want some more information. The important takeaway is that ***the entire game can be found by requesting one byte of the machine code at a time***. One thing to note is that the data in the game (such as sprites) and the machine code instructions have to share the same address space. The CPU cannot determine if the contents of the data lines are data or code; if we're not careful we could end up interpreting sprites as instructions, and this is actually the source of numerous famous gameboy glitches.
+In the above image you can see that the CPU is requesting the byte at 0x2923, which in this example happened to be 0x0066. The numbers are represented by physically setting the voltage on some of the wires high. Note that this is an absurdly simplified example, Ben Eater does some excellent videos on this if you want some more information. The important takeaway is that ***the entire game can be found by requesting one byte of the machine code at a time***. One thing to note is that the data in the game (such as sprites) and the machine code instructions have to share the same address space. The CPU cannot determine if the contents of the data lines are data or code; if we're not careful we could end up interpreting sprites as instructions, and this is actually the source of numerous famous gameboy glitches.
 
 ### Gameboy Cartridge Specifics
 
@@ -87,3 +87,85 @@ xxd -s 0x100 -l 4 kirby.gb
 
 Using the hex dump tool, we can see that Kirby's dream land is the same. It may not look like much, but we've decoded the first three instructions ran by KDL. However, we won't get far interrogating this ROM one byte at a time. Let's start automating this process a little.
 
+## Byte by byte decoding
+
+I'm now going to start writing a C program to produce the decompiled output, mainly because I would like some practice handling strings in C. We're going to read in the ROM as a binary file and pass each byte into an *uint8_t*, as it is guaranteed to be 8 bits large, and a char is not. Close the file so that it's not kept open, and all references to the ROM will be to a member variable *_rom*.
+
+```c
+/*Get the length of the ROM file in bytes*/
+fseek(romFile, 0L, SEEK_END);
+_romSize = ftell(romFile);
+fseek(romFile, 0, SEEK_SET);
+
+/*Allocate space for the rom in memory*/
+_rom = (uint8_t *)malloc(_romSize * sizeof(uint8_t));
+if (!_rom)
+{
+    printf("Error allocating space for the ROM\n");
+    return -1;
+}
+/*Read rom contents into an array*/
+fread(_rom, _romSize, sizeof(uint8_t), romFile);
+fclose(romFile);
+
+/*Outputs : Reading ROM starting bytes : 0 C3 50 1*/
+printf("Reading ROM starting bytes : %X %X %X %X\n", _rom[0x100], 
+       _rom[0x101], _rom[0x102], _rom[0x103]);
+```
+
+Now we need to gain the ability to translate each instruction into text, lets start with a framework for doing that one instruction at a time. So lets start with a structure to represent an instruction's op code. 
+
+```c
+typedef struct cpu_op
+{
+    uint8_t op_code;         /*The byte in main memory*/
+    uint8_t length;          /*How many bytes the opperands are*/
+    const char *const name;  /*Mnemonic, can't spell it*/
+    uint8_t flag;            /*What to do with the operands*/
+} cpu_op;
+```
+
+Now when when we're decoding a series of bytes we can look up the opcode in the table. It will tell us the type of opcode and how to process the operands. If the instruction length is only one byte long then it doesn't take any operands  and we can turn it directly into it's mnemonic. In other cases we just process the operands according to the type of flag I set for the op code.
+
+```c
+/*get what op code is represented by the instruction*/
+cpu_op operation = lookupOpCode(_rom[offset]);
+
+if (operation.length == 1 || operation.flag == FLAG_NONE)
+{
+    (*p_offset)++;
+    return operation.name;
+}
+else
+{
+    ...
+}
+```
+
+Offset is a pointer passed to the decode function so that we can advance the offset to the next instruction and know that we're not trying to decode the operands to an instruction as an instruction itself. For example if we we want to decode an instruction that takes an address as an argument. An address is encoded with the lower byte first, then the second; this can be encoded as a string, and then concatenated with the opcode to get a full instruction. 
+
+```c
+/*Construct a string representing the opperand of the instruction*/
+char *operandText = NULL;
+switch (operation.flag)
+{
+    case FLAG_ADDR:
+        /*Bytes are organised in a LH orientation*/
+        operandText = decodeAddr(offset + 1);
+        break;
+    default:
+        return "Processing unknown flag type";
+        break;
+}
+```
+
+Running our code on the first three bytes in the ROM header, we find that it is accurately decoded into:
+
+> Reading ROM starting bytes : 00 C3 50 01    
+> Decoding from 0x100 :   
+> NOP   
+> JMP 0x0150       
+
+There are now two things left to do, fill out the opcode lookup table and then find out a way to distinguish when the binary we're reading is instructions and when it is asset data such as textures. But first if we're going to decompile the code into readable code, we'll need something to compile it back so we can test our results.
+
+ 
