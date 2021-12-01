@@ -57,7 +57,7 @@ plugins:
 
 author:
   name   : "Lawrence Green"
-  avatar : "/assets/bio-photo.jpg"
+  avatar : "/assets/bio-photo.png"
   bio    : "Autistic mathematician, learning to specialise in GPU and compute. Welcome to my blog, please enjoy your stay. feedback and questions always welcome."
   links:
     #- label: "Website"
@@ -84,6 +84,11 @@ footer:
    # - label: "Instagram"
    #   icon: "fab fa-fw fa-instagram"
    #   url: "https://instagram.com/"
+
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: "https-lawg4-github-io.disqus.com"
 
 defaults:
   # _posts
