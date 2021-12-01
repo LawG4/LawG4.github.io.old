@@ -85,6 +85,11 @@ footer:
    #   icon: "fab fa-fw fa-instagram"
    #   url: "https://instagram.com/"
 
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: "https-lawg4-github-io.disqus.com"
+
 defaults:
   # _posts
   - scope:
