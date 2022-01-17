@@ -1,8 +1,7 @@
 ---
 title: "Hyperbolic Tesselation - Reflection Groups"
 date: 2021-05-23T15:34:30-04:00
-#published: false
-
+order: "1"
 header:
   teaser: /assets/Portfolio/HyperbolicTess/Teaser.png
 

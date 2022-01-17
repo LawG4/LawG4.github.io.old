@@ -1,7 +1,7 @@
 ---
 title: "ScuffedCraft - Nintendo Wii Voxel Game"
 date: 2021-05-23T15:34:30-04:00
-#published: false
+order: "2"
 
 header:
   teaser: /assets/Portfolio/ScuffedCraft/Teaser.png
