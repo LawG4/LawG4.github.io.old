@@ -12,12 +12,19 @@ layout: archive
   {% assign posts = site.posts %}
 {% endif %}
 
+<!-- Assign a list of ints so I can order portfolio items -->
+{% assign post_order_list = "1,2,3" | split: ',' %}
+
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
+  {%for post_order in post_order_list %}
   {% for post in posts %}
-  	{% if post.categories contains "Portfolio" %}
-  		{% include archive-single.html type=entries_layout %}
-  	{% endif %}
+    {% if post.order == post_order %}
+  	  {% if post.categories contains "Portfolio" %}
+  		  {% include archive-single.html type=entries_layout %}
+  	  {% endif %}
+    {%endif%}
+  {% endfor %}
   {% endfor %}
 </div>
 
