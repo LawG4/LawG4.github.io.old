@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   My blog for a couple of my personal projects, showcasing my best in the portfolio and hoping to add a Vulkan tutorial blog at some point.
 twitter_username: Lawrence9800
 github_username: LawG4
-minimal_mistakes_skin: neon #default
+minimal_mistakes_skin: custom #default
 search: true
 
 # Build settings
