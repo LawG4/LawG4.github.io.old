@@ -57,7 +57,7 @@ plugins:
 
 author:
   name   : "Lawrence Green"
-  avatar : "/assets/bio-photo.png"
+  avatar : "https://avatars.githubusercontent.com/u/61335367"
   bio    : "Autistic mathematician, learning to specialise in GPU and compute. Welcome to my blog, please enjoy your stay. feedback and questions always welcome."
   links:
     #- label: "Website"
